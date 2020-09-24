@@ -33,11 +33,8 @@ export default {
                         to: "/"
                     },
                     {
-                        label: "Sign In",
-                        to: "/login"
-                    }, {
-                        label: "Sign Up",
-                        to: "/register"
+                        label: "Shopping List",
+                        to: "/shoppinglist"
                     }
                 ]
             }

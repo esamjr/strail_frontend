@@ -18,7 +18,7 @@
                 <nav>
                     <ul class="lg:flex items-center justify-between font-medium pt-4 lg:pt-0">
                         <li v-for="(link, index) in links" :key="index">
-                            <router-link class="nav-link font-aileron lg:text-base tracking-tight text-xl lg:text-gray-800 py-4 px-6 block rounded-lg" :to="link.to">
+                            <router-link class="nav-link lg:text-base tracking-tight text-xl lg:text-gray-800 py-4 px-6 block rounded-lg" :to="link.to">
                                 {{
                   link.label
                   }}

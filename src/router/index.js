@@ -6,7 +6,7 @@ import MainLayout from "../layouts/MainLayout.vue"
 
 import Home from '../views/Home.vue'
 import Shopping from '../views/ShoppingList.vue'
-import Login from '../components/Login.vue'
+import Login from '../views/Login.vue'
 Vue.use(VueRouter)
 
 const routes = [{
@@ -16,10 +16,6 @@ const routes = [{
                 path: '/',
                 name: 'Home',
                 component: Home
-            }, {
-                path: '/login',
-                name: 'Login',
-                component: Login
             },
             {
                 path: '/shoppinglist',
@@ -27,6 +23,11 @@ const routes = [{
                 component: Shopping
             },
         ]
+
+    }, {
+        path: '/login',
+        name: 'Login',
+        component: Login
     },
 
 

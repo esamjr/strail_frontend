@@ -47,6 +47,9 @@ module.exports = {
                     800: '#173C88',
                     900: '#12306D',
                 },
+                black: {
+                    default: '#1e2023'
+                }
             },
             fontFamily: {
                 custom: ['Titillium Web'],
