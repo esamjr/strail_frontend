@@ -5,7 +5,7 @@
             <div>
                 <div class="flex-1 flex">
                     <router-link to="/" class="font-bold text-5xl">
-                        Mock<span class="text-primary">.me</span>
+                        Mock<span class="text-secondary">.me</span>
                     </router-link>
                 </div>
                 <h2 class="mt-6 text-left text-2xl leading-9 font-extrabold text-secondary-600">
@@ -51,6 +51,13 @@
                         </span>
                         Sign in
                     </button>
+                </div>
+                <div class="grid grid-cols-1">
+                    <div class="col-end-1">
+                        <router-link to="/register" class="font-medium text-black hover:text-gray-700 focus:outline-none focus:underline transition ease-in-out duration-150 md:mr-8">
+                            Already Have Account?
+                        </router-link>
+                    </div>
                 </div>
             </form>
         </div>
