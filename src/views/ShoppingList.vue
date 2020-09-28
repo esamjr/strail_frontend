@@ -116,7 +116,7 @@ export default {
 
         load() {
             axios
-                .get(process.env.VUE_APP_DEV_API + "/shopping", {
+                .get(process.env.VUE_APP_PROD_API + "/shopping", {
                     headers: {
                         'content-type': 'application/json'
                     }
@@ -131,7 +131,7 @@ export default {
         del(list) {
             axios
                 .delete(
-                    process.env.VUE_APP_DEV_API + "/shopping/delete/" + list.model.ID
+                    process.env.VUE_APP_PROD_API + "/shopping/delete/" + list.model.ID
                 )
                 .then((res) => {
                     let index = this.shoppinglist.indexOf(list);
@@ -148,7 +148,7 @@ export default {
             formData.append('name', this.shoppinglist.name);
             formData.append('total', this.shoppinglist.total);
             axios
-                .post(process.env.VUE_APP_DEV_API + "/shopping", formData, {
+                .post(process.env.VUE_APP_PROD_API + "/shopping", formData, {
                     headers: {
                         'content-type': 'application/x-www-form-urlencoded'
                     }
