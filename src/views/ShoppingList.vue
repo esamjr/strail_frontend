@@ -61,40 +61,38 @@
                             New Shopping List
                         </h4>
                     </template>
-
-                    <div class="flex flex-col gap-6 content-start">
-                        <vs-card type="2">
-                            <template #img>
-                                <img src="https://picsum.photos/350/350" />
-                            </template>
-                            <template #interactions>
-                                <vs-button icon border dark upload>
-                                    <box-icon name='upload'></box-icon>
-                                </vs-button>
-                            </template>
-                        </vs-card>
-                        <vs-input state="dark" v-model="shoppinglist.name" placeholder="Item Name">
+                    <vs-card type="2">
+                        <template #img>
+                            <img src="https://picsum.photos/300/300" />
+                        </template>
+                        <template #interactions>
+                            <vs-button icon border dark upload>
+                                <box-icon name='upload'></box-icon>
+                            </vs-button>
+                        </template>
+                    </vs-card>
+                    <form @submit.prevent="add" class="flex flex-col gap-6 content-start mt-2">
+                        <vs-input state="dark" name="name" v-model="shoppinglist.name" placeholder="Item Name">
                             <template #icon>
                                 <box-icon name='plus-circle'></box-icon>
                             </template>
                         </vs-input>
-                        <vs-input state="dark" class="" type="number" v-model="shoppinglist.total" placeholder="Total">
+                        <vs-input state="dark" name="total" v-model="shoppinglist.total" type="number" placeholder="Total">
                             <template #icon>
                                 <box-icon name='list-ol'></box-icon>
                             </template>
-
                         </vs-input>
-                    </div>
-                    <template #footer>
+
                         <div class="footer-dialog ">
-                            <vs-button block>
+                            <vs-button block type="submit" @click="afterSubmit=!afterSubmit">
                                 Save List
                             </vs-button>
                         </div>
-                    </template>
+                    </form>
+
                 </vs-dialog>
             </div>
-            <div v-if="active" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+            <!--<div v-if="active" class="opacity-25 fixed inset-0 z-40 bg-black"></div>-->
         </div>
 
     </div>
@@ -107,6 +105,7 @@ export default {
     data() {
         return {
             active: false,
+            afterSubmit: true,
             shoppinglist: {},
         };
     },
@@ -114,9 +113,14 @@ export default {
         this.load();
     },
     methods: {
+
         load() {
             axios
-                .get(process.env.VUE_APP_PROD_API + "/shopping")
+                .get(process.env.VUE_APP_DEV_API + "/shopping", {
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                })
                 .then((res) => {
                     this.shoppinglist = res.data;
                 })
@@ -127,14 +131,35 @@ export default {
         del(list) {
             axios
                 .delete(
-                    process.env.VUE_APP_PROD_API + "/shopping/delete/" + list.model.ID
+                    process.env.VUE_APP_DEV_API + "/shopping/delete/" + list.model.ID
                 )
                 .then((res) => {
                     let index = this.shoppinglist.indexOf(list);
                     this.shoppinglist.splice(index, 1);
                     console.log(res);
+                })
+                .catch((err) => {
+                    console.log(err);
                 });
+
         },
+        add() {
+            const formData = new FormData();
+            formData.append('name', this.shoppinglist.name);
+            formData.append('total', this.shoppinglist.total);
+            axios
+                .post(process.env.VUE_APP_DEV_API + "/shopping", formData, {
+                    headers: {
+                        'content-type': 'application/x-www-form-urlencoded'
+                    }
+                })
+                .then((res) => {
+                    this.load()
+                    console.log(res)
+                })
+                .catch((err) => console.log(err));
+
+        }
     },
 };
 </script>
