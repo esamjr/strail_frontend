@@ -26,75 +26,93 @@
                         </vs-tr>
                     </template>
                     <template #tbody>
-                        <vs-tr v-for="(list, tr) in shoppinglist" :key="list.id" :data="tr">
+                        <vs-tr v-for="(list, tr) in shoppinglist" :key="list.model.ID" :data="tr">
                             <vs-td>
                                 <img src="https://picsum.photos/100/100" class="rounded-lg w-28" />
                             </vs-td>
                             <vs-td>
-                                <p class="text-lg antialiased">{{ list.name }}</p>
+                                <p class="text-lg antialiased">{{ list.name }} </p>
                             </vs-td>
                             <vs-td>
                                 <p class="m-5 text-lg antialiased">{{ list.total }}</p>
                             </vs-td>
                             <vs-td>
-                                <vs-button border color="#1da78f" style="min-width: 70px">
-                                    Edit
-                                    <template #animate>
-                                        <box-icon name="pencil"></box-icon>
+                                <vs-tooltip left border color="#1da78f">
+                                    <vs-button border color="#1da78f" style="min-width: 70px" @click="edit(list), active=!active">
+                                        Edit
+                                        <template #animate>
+                                            <box-icon name="pencil"></box-icon>
+                                        </template>
+                                    </vs-button>
+                                    <template #tooltip>
+                                        Edit Your List
                                     </template>
-                                </vs-button>
-                                <vs-button danger @click.prevent="del(list)">
-                                    <span>Remove</span>
-                                    <template #animate>
-                                        <box-icon name="trash"> </box-icon>
+                                </vs-tooltip>
+                                <vs-tooltip left border danger>
+                                    <vs-button danger @click="del(list)">
+                                        <span>Remove</span>
+                                        <template #animate>
+                                            <box-icon name="trash"> </box-icon>
+                                        </template>
+                                    </vs-button>
+                                    <template #tooltip>
+                                        Remove Your List
                                     </template>
-                                </vs-button>
+                                </vs-tooltip>
                             </vs-td>
                         </vs-tr>
+
                     </template>
                 </vs-table>
             </div>
-            <div v-if="active" class="bg-dark-gray overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-                <vs-dialog blur not-close v-model="active">
-                    <template #header>
-                        <h4 class="text-3xl font-semibold">
-                            New Shopping List
-                        </h4>
-                    </template>
-                    <vs-card type="2">
-                        <template #img>
-                            <img src="https://picsum.photos/300/300" />
-                        </template>
-                        <template #interactions>
-                            <vs-button icon border dark upload>
-                                <box-icon name='upload'></box-icon>
-                            </vs-button>
-                        </template>
-                    </vs-card>
-                    <form @submit.prevent="add" class="flex flex-col gap-6 content-start mt-2">
-                        <vs-input state="dark" name="name" v-model="shoppinglist.name" placeholder="Item Name">
-                            <template #icon>
-                                <box-icon name='plus-circle'></box-icon>
-                            </template>
-                        </vs-input>
-                        <vs-input state="dark" name="total" v-model="shoppinglist.total" type="number" placeholder="Total">
-                            <template #icon>
-                                <box-icon name='list-ol'></box-icon>
-                            </template>
-                        </vs-input>
+            <transition name="fadeDown">
 
-                        <div class="footer-dialog ">
-                            <vs-button block type="submit" @click="afterSubmit=!afterSubmit">
-                                Save List
-                            </vs-button>
-                        </div>
-                    </form>
+                <div v-if="active" class="bg-dark-gray overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+                    <vs-dialog blur not-close v-model="active">
+                        <template #header>
+                            <h4 v-show="!updateSubmit" class="text-3xl font-semibold">
+                                New Shopping List
+                            </h4>
+                            <h4 v-show="updateSubmit" class="text-3xl font-semibold">
+                                Edit Shopping List
+                            </h4>
+                        </template>
+                        <vs-card type="2">
+                            <template #img>
+                                <img src="https://picsum.photos/300/300" />
+                            </template>
+                            <template #interactions>
+                                <vs-button icon border dark upload>
+                                    <box-icon name='upload'></box-icon>
+                                </vs-button>
+                            </template>
+                        </vs-card>
+                        <form @submit.prevent="add()" class="flex flex-col gap-6 content-start mt-2">
+                            <vs-input type="hidden" v-model="shoppinglist.id"></vs-input>
+                            <vs-input state="dark" name="name" v-model="shoppinglist.name" placeholder="Item Name">
+                                <template #icon>
+                                    <box-icon name='plus-circle'></box-icon>
+                                </template>
+                            </vs-input>
+                            <vs-input state="dark" name="total" v-model="shoppinglist.total" type="number" placeholder="Total">
+                                <template #icon>
+                                    <box-icon name='list-ol'></box-icon>
+                                </template>
+                            </vs-input>
 
-                </vs-dialog>
-            </div>
-            <!--<div v-if="active" class="opacity-25 fixed inset-0 z-40 bg-black"></div>-->
+                            <div class="footer-dialog">
+                                <vs-button block type="submit" v-show="!updateSubmit" @click="openNotification('top-center', 'success')">
+                                    Save List
+                                </vs-button>
+                                <vs-button block type="button" v-show="updateSubmit" @click="update(shoppinglist), active=false">
+                                    Update List
+                                </vs-button>
+                            </div>
+                        </form>
+                    </vs-dialog>
+                </div>
+            </transition>
         </div>
-
     </div>
 </div>
 </template>
@@ -105,7 +123,7 @@ export default {
     data() {
         return {
             active: false,
-            afterSubmit: true,
+            updateSubmit: false,
             shoppinglist: {},
         };
     },
@@ -113,6 +131,13 @@ export default {
         this.load();
     },
     methods: {
+        openNotification(position = null, color) {
+            this.$vs.notification({
+                color,
+                position,
+                title: 'Your list has been added'
+            })
+        },
 
         load() {
             axios
@@ -127,21 +152,6 @@ export default {
                 .catch((err) => {
                     console.log(err);
                 });
-        },
-        del(list) {
-            axios
-                .delete(
-                    process.env.VUE_APP_PROD_API + "/shopping/delete/" + list.model.ID
-                )
-                .then((res) => {
-                    let index = this.shoppinglist.indexOf(list);
-                    this.shoppinglist.splice(index, 1);
-                    console.log(res);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-
         },
         add() {
             const formData = new FormData();
@@ -159,7 +169,51 @@ export default {
                 })
                 .catch((err) => console.log(err));
 
-        }
+        },
+        edit(list) {
+            this.updateSubmit = true
+            this.shoppinglist.id = list.model.ID
+            this.shoppinglist.name = list.name
+            this.shoppinglist.total = list.total
+
+        },
+        update(shoppinglist) {
+            const formData = new FormData();
+            formData.append('name', shoppinglist.name);
+            formData.append('total', shoppinglist.total);
+
+            return axios.put(
+                    process.env.VUE_APP_PROD_API + "/shopping/" + shoppinglist.id, formData, {
+                        headers: {
+                            'content-type': 'application/x-www-form-urlencoded'
+                        }
+                    })
+                .then((res) => {
+                    this.load()
+                    this.shoppinglist.name = ''
+                    this.shoppinglist.total = ''
+                    this.updateSubmit = false
+                    console.log(res.data)
+                })
+                .catch((err) => console.log(err));
+        },
+
+        del(list) {
+            axios
+                .delete(
+                    process.env.VUE_APP_PROD_API + "/shopping/delete/" + list.model.ID
+                )
+                .then((res) => {
+                    let index = this.shoppinglist.indexOf(list);
+                    this.shoppinglist.splice(index, 1);
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+
+        },
+
     },
 };
 </script>

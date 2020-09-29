@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import '@/assets/css/style.css'
 import 'hamburgers/dist/hamburgers.css'
+import 'vue2-animate/dist/vue2-animate.min.css'
 import 'boxicons'
 import Vuesax from 'vuesax'
 
