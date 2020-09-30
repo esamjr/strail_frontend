@@ -36,6 +36,7 @@
 export default {
     props: {
         links: Array
+
     },
     data() {
         return {
@@ -59,7 +60,7 @@ export default {
 
 .nav-link {
     &:hover {
-        color: #00c853;
+        color: #27debf;
     }
 
     transition: 0.15s;

@@ -74,47 +74,21 @@
     </div>
     <div id="testimonials" class="bg-blue-100 pt-2">
         <div class="mt-16">
-            <div class="bg-blue-500 pt-16 pb-16 md:pb-32 relative">
-                <img src="../assets/img/wave3.svg" class="w-full absolute bottom-full h-16 lg:h-auto object-cover object-top">
-                <div class="container px-6 mx-auto">
-                    <div class="md:w-2/3 mx-auto relative">
-                        <img src="../assets/img/quote.svg" class="absolute top-0 left-0 sm:-ml-16 -mt-4">
-                        <h3 class="text-white italic text-2xl text-center">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam imperdiet est tellus, et consequat sem sodales id. Quisque molestie et mauris efficitur lacinia.
-                            <strong class="block not-italic mt-6 text-primary">FRANK</strong>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="flex items-center justify-center -mt-8 md:-mt-16 lg:-mt-24 relative">
-                <a href="#">
-                    <img src="../assets/img/avatar3.jpg" class="w-12 h-12 md:w-24 md:h-24 lg:w-32 lg:h-32 mx-2 lg:mx-4 object-cover rounded-full border-2 md:border-4 border-white">
-                </a>
-                <a href="#">
-                    <img src="../assets/img/avatar4.jpg" class="w-12 h-12 md:w-24 md:h-24 lg:w-32 lg:h-32 mx-2 lg:mx-4 object-cover rounded-full border-2 md:border-4 border-white">
-                </a>
-                <a href="#">
-                    <img src="../assets/img/avatar.jpeg" class="w-16 h-16 md:w-32 md:h-32 lg:w-48 lg:h-48 mx-2 lg:mx-4 object-cover rounded-full border-2 md:border-4 border-white">
-                </a>
-                <a href="#">
-                    <img src="../assets/img/avatar2.jpg" class="w-12 h-12 md:w-24 md:h-24 lg:w-32 lg:h-32 mx-2 lg:mx-4 object-cover rounded-full border-2 md:border-4 border-white">
-                </a>
-                <a href="#">
-                    <img src="../assets/img/avatar5.jpg" class="w-12 h-12 md:w-24 md:h-24 lg:w-32 lg:h-32 mx-2 lg:mx-4 object-cover rounded-full border-2 md:border-4 border-white">
-                </a>
-            </div>
             <div id="contact" class="container mx-auto px-6 py-24">
-                <h3 class="flex flex-col items-center text-4xl text-secondary font-bold mb-12">I need more info! <span class="bg-primary h-1 w-20 block mt-4"></span></h3>
-                <div class="flex shadow-lg md:w-2/3 lg:w-1/2 xl:w-2/5 p-1 rounded-full overflow-hidden mx-auto bg-white">
-                    <input type="text" name="" placeholder="Insert your mail" class="h-16 text-secondary-700 w-64 flex-1 px-8 text-lg focus:outline-none">
-                    <button class="bg-primary w-32 uppercase font-bold text-secondary rounded-full">Send</button>
+                <div class="bg-blue-500 pt-2 pb-6 md:pb-20 relative">
+                    <img src="../assets/img/waveFooter.svg" class="w-auto absolute bottom-full">
+                    <h3 class="flex flex-col items-center text-4xl text-white font-bold mb-12">I need more info! <span class="bg-white h-1 w-20 block mt-4"></span></h3>
+                    <div class="flex shadow-lg md:w-2/3 lg:w-1/2 xl:w-2/5 p-1 rounded-full overflow-hidden mx-auto bg-white">
+                        <input type="text" name="" placeholder="Insert your mail" class="h-16 text-secondary-700 w-64 flex-1 px-8 text-lg focus:outline-none">
+                        <button class="bg-blue-500 w-32 border border-white uppercase font-bold text-white rounded-full">Send</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="bg-blue-100">
-        <div class="container mx-auto px-6 py-12 text-secondary-500 text-center border-t border-gray-300">
-            <p>Copyright ©2020 TaildwindComponents. All rights reserved. | Illustrations by <a href="https://freepik.com/" class="text-secondary-900 font-bold underline">Freepik</a> | Avatars by <a href="https://uifaces.co/" class="text-secondary-900 font-bold underline">UI Faces</a> | Template By <a href="https://github.com/highscoresl" class="text-secondary-900 font-bold underline">Highscore Studio</a></p>
+    <div class="bg-blue-100 pt-0">
+        <div class="container bg-gray-800 mx-auto px-6 py-12 text-white text-center border-t border-gray-300">
+            <p>Copyright ©2020 TaildwindComponents. All rights reserved. | Illustrations by <a href="https://freepik.com/" class="text-primary font-bold underline">Freepik</a> | Avatars by <a href="https://uifaces.co/" class="text-primary font-bold underline">UI Faces</a> | Template By <a href="https://github.com/highscoresl" class="text-primary font-bold underline">Highscore Studio</a></p>
         </div>
     </div>
 </div>

@@ -4,42 +4,27 @@
         <div class="max-w-md w-full">
             <div>
                 <div class="flex-1 flex">
-                    <router-link to="/" class="font-bold text-5xl">
-                        Mock<span class="text-secondary">.me</span>
+                    <router-link to="/" class="font-bold text-5xl uppercase">
+                        St<span class="text-secondary">rail</span>
                     </router-link>
                 </div>
-                <h2 class="mt-6 text-left text-2xl leading-9 font-extrabold text-secondary-600">
-                    Sign in to your account
+                <h2 class="text-left text-2xl leading-9 font-extrabold text-secondary-600">
+                    Sign Up to your account
                 </h2>
             </div>
-            <form class="mt-8" action="#" method="POST">
+            <form class="mt-8" action="#" @submit="register()">
                 <input type="hidden" name="remember" value="true">
                 <div class="rounded-md shadow-sm">
-                    <vs-input v-model="value1" placeholder="User name">
+                    <vs-input border dark v-model="users.username" placeholder="User name">
                         <template #icon>
                             <box-icon name="user"></box-icon>
                         </template>
                     </vs-input>
-                    <vs-input type="password" icon v-model="value2" placeholder="Password">
+                    <vs-input border dark type="password" icon v-model="users.password" placeholder="Password">
                         <template #icon>
                             <box-icon name="lock-open-alt"></box-icon>
                         </template>
                     </vs-input>
-                </div>
-
-                <div class="mt-6 flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input id="remember_me" type="checkbox" class="form-checkbox h-4 w-4 text-primary-600 transition duration-150 ease-in-out">
-                        <label for="remember_me" class="ml-2 block text-sm leading-5 text-gray-900">
-                            Remember me
-                        </label>
-                    </div>
-
-                    <div class="text-sm leading-5">
-                        <a href="#" class="font-medium text-black hover:text-gray-700 focus:outline-none focus:underline transition ease-in-out duration-150 md:mr-8">
-                            Forgot your password?
-                        </a>
-                    </div>
                 </div>
 
                 <div class="mt-6">
@@ -49,27 +34,53 @@
                                 <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
                             </svg>
                         </span>
-                        Sign in
+                        Sign Up
                     </button>
                 </div>
                 <div class="grid grid-cols-1">
                     <div class="col-end-1">
-                        <router-link to="/register" class="font-medium text-black hover:text-gray-700 focus:outline-none focus:underline transition ease-in-out duration-150 md:mr-8">
-                            Already Have Account?
+                        <span>Already Have Account?</span>
+                        <router-link to="/login">
+                            <span class="text-blue-200 font-medium text-black hover:text-blue-400 focus:outline-none focus:underline transition ease-in-out duration-150 md:mr-8"> Sign In</span>
                         </router-link>
                     </div>
                 </div>
             </form>
         </div>
         <div class="mt-16 sm:mt-0 flex-1 flex justify-end" id="image">
-            <img src="../assets/img/login.svg" class="gap-2" />
+            <img src="../assets/img/SignIn.svg" class="gap-2" />
         </div>
     </div>
 </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
+    data() {
+        return {
+            users: {
+                username: '',
+                password: '',
+            },
+        }
+    },
+    methods: {
+        register() {
+            const formData = new FormData();
+            formData.append('username', this.users.username);
+            formData.append('password', this.users.password);
+            axios.post(process.env.VUE_APP_PROD_API + "/user", formData, {
+                    headers: {
+                        'content-type': 'application/x-www-form-urlencoded'
+                    }
+                })
+                .then((res) => {
+                    console.log(res)
+                })
+                .catch((err) => console.log(err));
+        }
+    }
 
 }
 </script>

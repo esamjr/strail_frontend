@@ -9,7 +9,7 @@
                     </button>
                 </div>
             </div>
-            <div class="rellative center">
+            <div class="relative center">
                 <vs-table>
                     <template #thead>
                         <vs-tr>
@@ -65,9 +65,8 @@
                     </template>
                 </vs-table>
             </div>
-            <transition name="fadeDown">
-
-                <div v-if="active" class="bg-dark-gray overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+            <transition name="bounceUp">
+                <div v-if="active" class="bg-transparent overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
                     <vs-dialog blur not-close v-model="active">
                         <template #header>
                             <h4 v-show="!updateSubmit" class="text-3xl font-semibold">

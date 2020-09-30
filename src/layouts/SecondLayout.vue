@@ -1,6 +1,6 @@
 <template>
-<div class="container max-h-screen max-w-full">
-    <Navbar :links="nav.homelinks" />
+<div class="container mx-auto">
+    <Navbar2 />
     <div class="relative overflow-hidden">
         <img src="../assets/img/wave.svg" class="absolute top-0 left-2/5">
         <div class="container relative mx-auto">
@@ -18,33 +18,13 @@
 import {
     SlideYUpTransition
 } from "vue2-transitions";
-import Navbar from "../components/Navbar/Navbar1";
+import Navbar2 from "../components/Navbar/Navbar2"
 export default {
     name: "MainLayout",
     components: {
-        Navbar,
+        Navbar2,
         SlideYUpTransition
     },
-    data() {
-        return {
-            nav: {
-                homelinks: [{
-                        label: "Home",
-                        to: "/"
-                    },
-                    {
-                        label: "Sign In",
-                        to: "/login"
-                    },
-                    {
-                        label: "Sign Up",
-                        to: "/register"
-                    },
-
-                ],
-            }
-        };
-    }
 };
 </script>
 
