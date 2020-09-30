@@ -12,15 +12,15 @@
                     Sign in to your account
                 </h2>
             </div>
-            <form class="mt-8" action="#" method="POST">
+            <form class="mt-8" @submit.prevent="login()">
                 <input type="hidden" name="remember" value="true">
                 <div class="rounded-md shadow-sm">
-                    <vs-input border dark v-model="value1" placeholder="User name">
+                    <vs-input border dark v-model="users.username" placeholder="User name">
                         <template #icon>
                             <box-icon name="user"></box-icon>
                         </template>
                     </vs-input>
-                    <vs-input border dark type="password" icon v-model="value2" placeholder="Password">
+                    <vs-input border dark type="password" icon v-model="users.password" placeholder="Password">
                         <template #icon>
                             <box-icon name="lock-open-alt"></box-icon>
                         </template>
@@ -70,13 +70,44 @@
 </template>
 
 <script>
+import Shopping from '../views/ShoppingList.vue'
+import axios from "axios";
 export default {
     data() {
         return {
-            value1: '',
-            value2: '',
+            users: {
+                username: '',
+                passwrod: '',
+            },
         }
     },
+    methods: {
+        login() {
+            const formData = new FormData();
+            formData.append('username', this.users.username);
+            formData.append('password', this.users.password);
+            axios.post(process.env.VUE_APP_PROD_API + "/user/login/", formData, {
+                    headers: {
+                        'content-type': 'application/x-www-form-urlencoded'
+                    }
+                })
+                .then((res) => {
+                    const token = res.data.token
+                    localStorage.setItem('token', token)
+                    this.$router.push({
+                        path: '/shoppinglist',
+                        name: 'Shopping',
+                        component: Shopping
+                    })
+
+                    return res.data;
+                }).catch(err => {
+                    localStorage.removeItem('token')
+                    console.log(err)
+                })
+        },
+
+    }
 }
 </script>
 

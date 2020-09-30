@@ -3,11 +3,17 @@
     <div class="-mx-8 -my-2 overflow-x-auto sm:-mx-6 lg:">
         <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
             <div class="overflow-hidden border-b border-gray-200 shadow-xl sm:rounded-lg">
+                <div class="grid grid-cols-1 items-center justify-items-end font-medium">
+                    <vs-button danger border @click="logout()">
+                        <box-icon name='log-out'></box-icon> Log Out
+                    </vs-button>
+                </div>
                 <div>
                     <button @click="active=!active" class="px-8 py-2 mx-2 font-bold text-white border border-gray-200 rounded-lg bg-primary-700 hover:bg-primary-900">
                         Add+
                     </button>
                 </div>
+
             </div>
             <div class="relative center">
                 <vs-table>
@@ -118,6 +124,7 @@
 
 <script>
 import axios from "axios";
+import HomeVue from './Home.vue';
 export default {
     data() {
         return {
@@ -212,6 +219,14 @@ export default {
                 });
 
         },
+        logout() {
+            localStorage.removeItem('token')
+            this.$router.push({
+                path: '/',
+                name: 'Home',
+                component: HomeVue
+            })
+        }
 
     },
 };
