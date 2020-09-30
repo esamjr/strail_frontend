@@ -12,7 +12,7 @@
                     Sign Up to your account
                 </h2>
             </div>
-            <form class="mt-8" action="#" @submit="register()">
+            <form class="mt-8" @submit.prevent="register()">
                 <input type="hidden" name="remember" value="true">
                 <div class="rounded-md shadow-sm">
                     <vs-input border dark v-model="users.username" placeholder="User name">
@@ -56,6 +56,7 @@
 
 <script>
 import axios from "axios";
+import Login from "../components/Login.vue"
 export default {
     data() {
         return {
@@ -76,6 +77,11 @@ export default {
                     }
                 })
                 .then((res) => {
+                    this.$router.push({
+                        path: '/login',
+                        name: "Login",
+                        component: Login
+                    })
                     console.log(res)
                 })
                 .catch((err) => console.log(err));
